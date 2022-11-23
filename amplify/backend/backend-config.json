@@ -1,18 +1,24 @@
 {
   "api": {
-    "amplifyapp": {
+    "prognosus": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            }
+            "authenticationType": "AWS_IAM"
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-11-30T09:15:17.007Z",
+                "description": ""
+              }
+            }
+          ]
         }
       }
     }
