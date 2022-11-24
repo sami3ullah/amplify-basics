@@ -9,17 +9,110 @@
           "defaultAuthentication": {
             "authenticationType": "AWS_IAM"
           },
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "API_KEY",
-              "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-11-30T09:15:17.007Z",
-                "description": ""
-              }
-            }
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  },
+  "function": {
+    "prognosus428ac20eDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "prognosus428ac20eCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "prognosus428ac20eVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "prognosus428ac20eCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "prognosus428ac20ePostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "auth": {
+    "prognosus428ac20e": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "prognosus428ac20eDefineAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "prognosus428ac20eCreateAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "prognosus428ac20eVerifyAuthChallengeResponse",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "prognosus428ac20eCustomMessage",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "prognosus428ac20ePostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
           ]
         }
+      ],
+      "customAuth": true,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
       }
     }
   }

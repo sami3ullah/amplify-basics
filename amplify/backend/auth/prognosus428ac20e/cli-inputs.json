@@ -1,0 +1,67 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "prognosus428ac20e_identitypool_428ac20e",
+    "allowUnauthenticatedIdentities": false,
+    "resourceNameTruncated": "progno428ac20e",
+    "userPoolName": "prognosus428ac20e_userpool_428ac20e",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email",
+      "name"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "progno428ac20e_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "sharedId": "428ac20e",
+    "resourceName": "prognosus428ac20e",
+    "authSelections": "identityPoolAndUserPool",
+    "useDefault": "default",
+    "usernameAttributes": [
+      "email"
+    ],
+    "triggers": {
+      "DefineAuthChallenge": [
+        "captcha-define-challenge"
+      ],
+      "CreateAuthChallenge": [
+        "captcha-create-challenge"
+      ],
+      "VerifyAuthChallengeResponse": [
+        "captcha-verify"
+      ],
+      "CustomMessage": [
+        "verification-link"
+      ],
+      "PostConfirmation": [
+        "add-to-group"
+      ]
+    },
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "verificationBucketName": "prognosus428ac20everificationbucket",
+    "usernameCaseSensitive": false,
+    "useEnabledMfas": true
+  }
+} 

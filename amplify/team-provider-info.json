@@ -1,19 +1,50 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-prognosus-dev-140810-authRole",
-      "UnauthRoleArn": "arn:aws:iam::408548543658:role/amplify-prognosus-dev-140810-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::408548543658:role/amplify-prognosus-dev-140810-authRole",
+      "AuthRoleName": "amplify-prognosus-dev-113151-authRole",
+      "UnauthRoleArn": "arn:aws:iam::408548543658:role/amplify-prognosus-dev-113151-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::408548543658:role/amplify-prognosus-dev-113151-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-prognosus-dev-140810-deployment",
-      "UnauthRoleName": "amplify-prognosus-dev-140810-unauthRole",
-      "StackName": "amplify-prognosus-dev-140810",
-      "StackId": "arn:aws:cloudformation:us-east-1:408548543658:stack/amplify-prognosus-dev-140810/5ca980c0-6b0e-11ed-ada0-12f9d8ec3d85",
-      "AmplifyAppId": "dbakcmwsq2v4m"
+      "DeploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+      "UnauthRoleName": "amplify-prognosus-dev-113151-unauthRole",
+      "StackName": "amplify-prognosus-dev-113151",
+      "StackId": "arn:aws:cloudformation:us-east-1:408548543658:stack/amplify-prognosus-dev-113151/b15f5af0-6bc1-11ed-9f07-127c41fefec1",
+      "AmplifyAppId": "d3u3gt2eyg50l4",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-prognosus-dev-113151-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "api": {
         "prognosus": {}
+      },
+      "auth": {
+        "prognosus428ac20e": {}
+      },
+      "function": {
+        "prognosus428ac20eDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+          "s3Key": "amplify-builds/prognosus428ac20eDefineAuthChallenge-3549714a5a682f536449-build.zip"
+        },
+        "prognosus428ac20eCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+          "s3Key": "amplify-builds/prognosus428ac20eCreateAuthChallenge-5a7a694b39346e672f73-build.zip"
+        },
+        "prognosus428ac20eVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "",
+          "deploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+          "s3Key": "amplify-builds/prognosus428ac20eVerifyAuthChallengeResponse-643548463855614a5931-build.zip"
+        },
+        "prognosus428ac20eCustomMessage": {
+          "REDIRECTURL": "",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": "",
+          "deploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+          "s3Key": "amplify-builds/prognosus428ac20eCustomMessage-6d6973324a6264464566-build.zip"
+        },
+        "prognosus428ac20ePostConfirmation": {
+          "GROUP": "",
+          "deploymentBucketName": "amplify-prognosus-dev-113151-deployment",
+          "s3Key": "amplify-builds/prognosus428ac20ePostConfirmation-364e4c4d743878664b58-build.zip"
+        }
       }
     }
   }

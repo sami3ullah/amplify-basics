@@ -1,0 +1,18 @@
+{
+  "trigger": true,
+  "modules": [
+    "captcha-verify"
+  ],
+  "parentResource": "prognosus428ac20e",
+  "functionName": "prognosus428ac20eVerifyAuthChallengeResponse",
+  "resourceName": "prognosus428ac20eVerifyAuthChallengeResponse",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/VerifyAuthChallengeResponse",
+  "triggerTemplate": "VerifyAuthChallengeResponse.json.ejs",
+  "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
+  "roleName": "prognosus428ac20eVerifyAuthChallengeResponse",
+  "skipEdit": true,
+  "RECAPTCHASECRET": "",
+  "enableCors": false
+}
