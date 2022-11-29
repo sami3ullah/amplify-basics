@@ -1,3 +1,18 @@
+const { colors: defaultColors } = require("tailwindcss/defaultTheme");
+
+const colors = {
+  darkMode: "true",
+  ...defaultColors,
+  ...{
+    primary: "#F28157",
+    darkprimary: "#BF665E",
+    secondary: "#04BF9D",
+    darksecondary: "#03A696",
+    darkgrey: "#191718",
+    blueishsecondary: "#253659",
+  },
+};
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -8,16 +23,8 @@ module.exports = {
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
     },
-    extend: {
-      colors: {
-        primary: "#F28157",
-        darkprimary: "#BF665E",
-        secondary: "#04BF9D",
-        darksecondary: "#03A696",
-        darkgrey: "#191718",
-        blueishsecondary: "#253659",
-      },
-    },
+    colors: colors,
+    extend: {},
   },
   plugins: [require("flowbite/plugin")],
 };

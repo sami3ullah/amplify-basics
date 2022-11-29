@@ -1,7 +1,15 @@
-import React,{useState} from 'react'
-import {Link} from 'react-router-dom'
-import { LOGIN } from '../../utils/routes'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { LOGIN } from "../../utils/routes";
 import { FormTypes } from "../../utils/enums";
+import {
+  signUp,
+  confirmSignUp,
+  resendConfirmationCode,
+} from "../../api/cognito";
+import Arrow from "../../utils/icons/Arrow/Arrow";
+import Spinner from "../../utils/icons/Spinner/Spinner";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function Signup() {
   const [formValues, setFormValues] = useState({
@@ -10,35 +18,71 @@ function Signup() {
     password: "",
     authCode: "",
     formType: FormTypes.SIGNUP,
+    isLoading: false,
+    errorMessage: "",
   });
+  const { dispatch } = useAuthContext();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
     setFormValues(() => ({ ...formValues, [e.target.name]: e.target.value }));
   };
 
-  const submitHandler = (e: React.FormEvent) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormValues(() => ({ ...formValues, formType: FormTypes.CONFIRMSIGNUP }));
+    setFormValues(() => ({ ...formValues, isLoading: true }));
+    try {
+      const response = await signUp(
+        formValues.email,
+        formValues.password,
+        formValues.email,
+        formValues.name
+      );
+      setFormValues(() => ({ ...formValues, errorMessage: response }));
+      setFormValues(() => ({ ...formValues, isLoading: false }));
+      if (response) {
+        setFormValues(() => ({
+          ...formValues,
+          formType: FormTypes.CONFIRMSIGNUP,
+        }));
+      }
+      // setting the context state
+      // dispatch({type: "USER": payload: response})
+    } catch (err) {
+      setFormValues(() => ({ ...formValues, isLoading: false }));
+    }
+  };
+
+  const confirmSignupHandler = async () => {
+    // call api here
+    setFormValues(() => ({ ...formValues, isLoading: true }));
+    await confirmSignUp(formValues.email, formValues.authCode);
+    setFormValues(() => ({ ...formValues, isLoading: false }));
+  };
+
+  const resendCodeHandler = async () => {
+    setFormValues(() => ({ ...formValues, isLoading: true }));
+    await resendConfirmationCode(formValues.email);
+    setFormValues(() => ({ ...formValues, isLoading: false }));
   };
 
   return (
-    <section className="background-image h-screen bg-blueishsecondary flex items-center justify-center">
+    <section className="flex items-center justify-center h-screen background-image bg-blueishsecondary">
       <div className="w-[80%] md:w-[60%] lg:w-[30%] bg-darkgrey rounded-lg py-5">
         {/* if formtype is signup */}
         {formValues.formType === FormTypes.SIGNUP ? (
           <div>
-            <h1 className="text-lg md:text-3xl text-center py-6 text-white  font-bold uppercase">
+            <h1 className="py-6 text-lg font-bold text-center text-white uppercase md:text-3xl">
               Create a free account
             </h1>
             {/* form */}
-            <div className="py-6 px-10">
+            <div className="px-10 py-6">
               <form
                 onSubmit={submitHandler}
                 className="flex flex-col items-center"
               >
                 {/* name */}
-                <div className="relative z-0 mb-8 w-full">
+                <div className="relative z-0 w-full mb-8">
                   <input
                     type="text"
                     onChange={onChangeHandler}
@@ -49,7 +93,7 @@ function Signup() {
                   <label className="@apply floating-label">Full Name</label>
                 </div>
                 {/* email */}
-                <div className="relative z-0 mb-8 w-full">
+                <div className="relative z-0 w-full mb-8">
                   <input
                     type="text"
                     onChange={onChangeHandler}
@@ -60,7 +104,7 @@ function Signup() {
                   <label className="@apply floating-label">Email</label>
                 </div>
                 {/* password */}
-                <div className="relative z-0 mb-8 w-full">
+                <div className="relative z-0 w-full mb-8">
                   <input
                     type="password"
                     onChange={onChangeHandler}
@@ -73,22 +117,10 @@ function Signup() {
                 {/* submit button */}
                 <button
                   type="submit"
-                  className="button-styles mt-6 w-full bg-primary flex justify-center transition uppercase font-bold group"
+                  className="flex justify-center w-full mt-6 font-bold uppercase transition button-styles bg-primary group"
                 >
                   Sign UP
-                  <svg
-                    aria-hidden="true"
-                    className="ml-2 -mr-1 w-5 h-5 group-hover:translate-x-2 group-hover:scale-110 duration-300"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
+                  {formValues.isLoading ? <Spinner /> : <Arrow />}
                 </button>
                 <p className="mt-3 text-sm text-white">
                   Already have an account?
@@ -101,17 +133,14 @@ function Signup() {
           </div>
         ) : (
           <div>
-            <h1 className="text-lg md:text-3xl text-center py-6 text-white  font-bold uppercase">
+            <h1 className="py-6 text-lg font-bold text-center text-white uppercase md:text-3xl">
               Enter your confirmation code
             </h1>
             {/* form */}
-            <div className="py-6 px-10">
-              <form
-                onSubmit={submitHandler}
-                className="flex flex-col items-center"
-              >
+            <div className="px-10 py-6">
+              <div className="flex flex-col items-center">
                 {/* confirmation code */}
-                <div className="relative z-0 mb-8 w-full">
+                <div className="relative z-0 w-full mb-8">
                   <input
                     type="text"
                     onChange={onChangeHandler}
@@ -125,31 +154,25 @@ function Signup() {
                 </div>
                 {/* submit button */}
                 <button
-                  type="submit"
-                  className="button-styles mt-6 w-full bg-primary flex justify-center transition uppercase font-bold group"
+                  onClick={confirmSignupHandler}
+                  className="flex justify-center w-full mt-6 font-bold uppercase transition button-styles bg-primary group"
                 >
-                  Sign UP
-                  <svg
-                    aria-hidden="true"
-                    className="ml-2 -mr-1 w-5 h-5 group-hover:translate-x-2 group-hover:scale-110 duration-300"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
+                  Confirm Singup
+                  {formValues.isLoading ? <Spinner /> : <Arrow />}
                 </button>
+                <span
+                  className="underline text-primary"
+                  onClick={resendCodeHandler}
+                >
+                  {formValues.isLoading ? <Spinner /> : "Resend Code"}
+                </span>
                 <p className="mt-3 text-sm text-white">
                   Already have an account?
                   <Link to={LOGIN}>
                     <span className="underline text-primary"> Login</span>
                   </Link>
                 </p>
-              </form>
+              </div>
             </div>
           </div>
         )}
@@ -158,4 +181,4 @@ function Signup() {
   );
 }
 
-export default Signup
+export default Signup;

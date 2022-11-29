@@ -1,19 +1,19 @@
-import {Link} from 'react-router-dom'
-import {SIGNUP } from '../../utils/routes'
+import { Link } from "react-router-dom";
+import { SIGNUP } from "../../utils/routes";
 
 function Login() {
   return (
-    <section className="background-image h-screen bg-blueishsecondary flex items-center justify-center">
+    <section className="flex items-center justify-center h-screen background-image bg-blueishsecondary">
       <div className="w-[80%] md:w-[60%] lg:w-[30%] bg-darkgrey rounded-lg py-5">
         <div>
-          <h1 className="text-lg md:text-3xl text-center py-6 text-white font-bold uppercase">
+          <h1 className="py-6 text-lg font-bold text-center text-white uppercase md:text-3xl">
             Login to your account
           </h1>
           {/* form */}
-          <div className="py-6 px-10">
+          <div className="px-10 py-6">
             <form className="flex flex-col items-center">
               {/* email */}
-              <div className="relative z-0 mb-8 w-full">
+              <div className="relative z-0 w-full mb-8">
                 <input
                   type="text"
                   name="email"
@@ -25,7 +25,7 @@ function Login() {
                 </label>
               </div>
               {/* password */}
-              <div className="relative z-0 mb-8 w-full">
+              <div className="relative z-0 w-full mb-8">
                 <input
                   type="text"
                   name="password"
@@ -39,12 +39,12 @@ function Login() {
               {/* submit button */}
               <button
                 type="button"
-                className="button-styles mt-6 w-full bg-primary flex justify-center transition uppercase font-bold group"
+                className="flex justify-center w-full mt-6 font-bold uppercase transition button-styles bg-primary group"
               >
                 Login
                 <svg
                   aria-hidden="true"
-                  className="ml-2 -mr-1 w-5 h-5 group-hover:translate-x-2 group-hover:scale-110 duration-300"
+                  className="w-5 h-5 ml-2 -mr-1 duration-300 group-hover:translate-x-2 group-hover:scale-110"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -70,4 +70,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;
