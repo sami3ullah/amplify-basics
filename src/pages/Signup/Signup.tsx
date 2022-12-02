@@ -53,6 +53,8 @@ function Signup() {
     }
   };
 
+  console.log("hi")
+
   const confirmSignupHandler = async () => {
     // call api here
     setFormValues(() => ({ ...formValues, isLoading: true }));
